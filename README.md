@@ -45,3 +45,5 @@ energyinterfirstshell(F8.3)  energyintersecondshel(F8.3) energyinterthirdshell(F
 For example, convector-ok.f used for calculation of Ltrans (Fig.3)
 timesg-ok.f and timeorder-ok.fis used for SG and Sb (Fig.4), rgxyz-ok.f is used for RE^2 and Rg^2 (Fig.6)
 ENERGY_INTRA_INTER generated during MC run is used for Fig.2)
+=============================================================================
+Example data and analysis for B30 nanofiber with 100 million MCS at 300 K are given.
