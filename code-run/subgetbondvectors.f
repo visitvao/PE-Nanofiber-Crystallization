@@ -1,0 +1,55 @@
+
+      SUBROUTINE SUBGETBONDVECTORS(BONDVECTOR)
+
+      INTEGER BONDVECTOR(12,3)
+
+      BONDVECTOR(1,1) = 1
+      BONDVECTOR(1,2) = 0
+      BONDVECTOR(1,3) = 0
+
+      BONDVECTOR(2,1) = -1
+      BONDVECTOR(2,2) = 0
+      BONDVECTOR(2,3) = 0
+
+      BONDVECTOR(3,1) = 0
+      BONDVECTOR(3,2) = 1
+      BONDVECTOR(3,3) = 0
+
+      BONDVECTOR(4,1) = 0
+      BONDVECTOR(4,2) = -1
+      BONDVECTOR(4,3) = 0
+
+      BONDVECTOR(5,1) = 0
+      BONDVECTOR(5,2) = 0
+      BONDVECTOR(5,3) = 1
+
+      BONDVECTOR(6,1) = 0
+      BONDVECTOR(6,2) = 0
+      BONDVECTOR(6,3) = -1
+
+      BONDVECTOR(7,1) = 1
+      BONDVECTOR(7,2) = -1
+      BONDVECTOR(7,3) = 0
+
+      BONDVECTOR(8,1) = -1
+      BONDVECTOR(8,2) = 1
+      BONDVECTOR(8,3) = 0
+
+      BONDVECTOR(9,1) = 1
+      BONDVECTOR(9,2) = 0
+      BONDVECTOR(9,3) = -1
+
+      BONDVECTOR(10,1) = -1
+      BONDVECTOR(10,2) = 0
+      BONDVECTOR(10,3) = 1
+
+      BONDVECTOR(11,1) = 0
+      BONDVECTOR(11,2) = 1
+      BONDVECTOR(11,3) = -1
+
+      BONDVECTOR(12,1) = 0
+      BONDVECTOR(12,2) = -1
+      BONDVECTOR(12,3) = 1
+
+      RETURN
+      END

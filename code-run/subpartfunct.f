@@ -1,0 +1,97 @@
+
+      SUBROUTINE SUBPARTFUNCT(U1,UBAR,UN,NOS,POWER,Z)
+
+      INTEGER   NU
+      PARAMETER (NU=9)
+      INTEGER   NOS, POWER
+      INTEGER   I, K
+
+      REAL      NORMFACTOR, NORMFACTORPROD, Z
+      REAL      U1(NU), UN(NU)
+      REAL      UTEMP9(NU), UTEMP92(NU)
+      REAL      UBAR(NU,NU,4)
+
+
+      NORMFACTORPROD = 1.0
+
+C  `````````````````` CALCULATIONS FOR POLYETHYLENE ````````````````
+      IF( NOS .EQ. 1 ) THEN
+        CALL SUBMATVEC2(UBAR, UN, UTEMP9, 9, 9, 1)
+        NORMFACTOR = 0.0
+        DO I = 1, NU
+          NORMFACTOR = MAX(NORMFACTOR,UTEMP9(I))
+        ENDDO
+        NORMFACTORPROD = NORMFACTORPROD * NORMFACTOR
+        DO I = 1, NU
+          UTEMP9(I) = UTEMP9(I) / NORMFACTOR
+        ENDDO
+
+      DO K = 1, POWER-1
+          CALL SUBMATVEC2(UBAR, UTEMP9, UTEMP92, 9, 9, 1)
+          NORMFACTOR = 0.0
+          DO I = 1, NU
+            NORMFACTOR = MAX(NORMFACTOR,UTEMP9(I))
+          ENDDO
+          NORMFACTORPROD = NORMFACTORPROD * NORMFACTOR
+          DO I = 1, NU
+            UTEMP9(I) = UTEMP92(I) / NORMFACTOR
+          ENDDO
+      ENDDO
+
+      Z = 0.0
+        DO I = 1, NU
+          Z = Z + U1(I)*UTEMP9(I)
+        ENDDO
+
+      Z = Z * NORMFACTORPROD
+      ENDIF
+C  `````````````````` CALCULATIONS FOR POLYETHYLENE ````````````````
+
+C  ```````````````` CALCULATIONS FOR POLYOXYETHYLENE ``````````````
+      IF( NOS .EQ. 3 ) THEN
+	IF(MOD(POWER,3).NE.0) THEN
+	  WRITE(6,*) 'PROBLEMS IN SUBROUTINE -SUBPARTFUNCT-'
+	  WRITE(6,*) 'POWER SHOULD BE A MULTIPLE OF 3'
+	  STOP 88
+	ENDIF
+        CALL SUBMATVEC2(UBAR, UN, UTEMP9, 9, 9, 4)
+        NORMFACTOR = 0.0
+        DO I = 1, NU
+          NORMFACTOR = MAX(NORMFACTOR,UTEMP9(I))
+        ENDDO
+        NORMFACTORPROD = NORMFACTORPROD * NORMFACTOR
+        DO I = 1, NU
+          UTEMP9(I) = UTEMP9(I) / NORMFACTOR
+        ENDDO
+
+      DO K = 1, POWER-1
+	IF( MOD(K,3).EQ.0 ) THEN
+          CALL SUBMATVEC2(UBAR, UTEMP9, UTEMP92, 9, 9, 4)
+	ENDIF
+	IF( MOD(K+1,3).EQ.0 ) THEN
+          CALL SUBMATVEC2(UBAR, UTEMP9, UTEMP92, 9, 9, 2)
+	ENDIF
+	IF( MOD(K+2,3).EQ.0 ) THEN
+          CALL SUBMATVEC2(UBAR, UTEMP9, UTEMP92, 9, 9, 3)
+	ENDIF
+          NORMFACTOR = 0.0
+          DO I = 1, NU
+            NORMFACTOR = MAX(NORMFACTOR,UTEMP9(I))
+          ENDDO
+          NORMFACTORPROD = NORMFACTORPROD * NORMFACTOR
+          DO I = 1, NU
+            UTEMP9(I) = UTEMP92(I) / NORMFACTOR
+          ENDDO
+      ENDDO
+
+      Z = 0.0
+        DO I = 1, NU
+          Z = Z + U1(I)*UTEMP9(I)
+        ENDDO
+
+      Z = Z * NORMFACTORPROD
+      ENDIF
+C  ```````````````` CALCULATIONS FOR POLYOXYETHYLENE ``````````````
+
+      RETURN
+      END

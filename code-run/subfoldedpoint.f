@@ -1,0 +1,40 @@
+
+C  *******************************************************************
+      SUBROUTINE SUBFOLDEDPOINT(X,Y,Z)
+
+      INTEGER  CHAINLENGTH, CHAINNUMBER
+      INTEGER  LATTICESIZEX, LATTICESIZEY, LATTICESIZEZ
+      INTEGER  X, Y, Z
+
+      COMMON  /SYSTEMSIZE/      CHAINLENGTH, CHAINNUMBER, 
+     >			LATTICESIZEX, LATTICESIZEY, LATTICESIZEZ
+
+  103 IF( X .GE. LATTICESIZEX ) THEN
+        X = X - LATTICESIZEX
+        GO TO 103
+      END IF
+  104 IF( X .LT. 0 ) THEN
+        X = X + LATTICESIZEX
+        GO TO 104
+      END IF
+
+  105 IF( Y .GE. LATTICESIZEY ) THEN
+        Y = Y - LATTICESIZEY
+        GO TO 105
+      END IF
+  106 IF( Y .LT. 0 ) THEN
+        Y = Y + LATTICESIZEY
+        GO TO 106
+      END IF
+
+  107 IF( Z .GE. LATTICESIZEZ ) THEN
+        Z = Z - LATTICESIZEZ
+        GO TO 107
+      END IF
+  108 IF( Z .LT. 0 ) THEN
+        Z = Z + LATTICESIZEZ
+        GO TO 108
+      END IF
+
+      RETURN
+      END
